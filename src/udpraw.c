@@ -80,8 +80,8 @@ void send_packet(char *src_ip, int src_port, char *dst_ip, int dst_port, int cou
     printf("Checksum: %04x\n", csum1);
     printf("Checksum: %04x (htoned) \n", htons(csum1));
     udphdr->uh_sum = htons(csum1);
-
-    for(int i = 0; i < count; i++){
+    int i;
+    for(i = 0; i < count; i++){
         printf("Sending UDP packet from %s:%d to %s:%d\n", src_ip, src_port, dst_ip, dst_port);
         int send_result = sendto( rawsock, &packet, sizeof(packet), 0x0,
             (struct sockaddr *)&address, sizeof(address));
