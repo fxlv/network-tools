@@ -101,8 +101,12 @@ int main(int argc, char *argv[])
     int count = 1;
     int opt;
     extern char *optarg;
-    char *src_ip = "10.111.103.201";
+    char *src_ip[20];
     char *dst_ip = NULL;
+    // assign random ip to src_ip 
+    randomip(src_ip);
+    printf("srcip %s \n", src_ip);
+    printf("dstip %s \n", dst_ip);
 
     if(argc < 3) // at least target is expected
         usage();
@@ -113,7 +117,7 @@ int main(int argc, char *argv[])
                 dst_ip = optarg;
                 break;
             case 's':
-                src_ip = optarg;
+                strncpy(src_ip, optarg, sizeof(optarg));
                 break;
             case 'p':
                 dst_port = atoi(optarg); // cast to integer

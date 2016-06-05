@@ -13,6 +13,24 @@ int randomint(int max_value){
 int randomport(){
     return randomint(65536);
 }
+
+void randomip(char* buf){
+    //generate 4 octets and string them together 
+    char oct1[4];
+    char oct2[4];
+    char oct3[4];
+    char oct4[4];
+    random_octet(oct1);
+    random_octet(oct2);
+    random_octet(oct3);
+    random_octet(oct4);
+    char ip[20];
+    snprintf(ip, 20, "%s.%s.%s.%s", oct1, oct2, oct3, oct4);
+    printf("IP will be: %s\n", ip);
+    strncpy(buf, ip, 20);
+    printf("Buffer is now: %s\n", buf);
+}
+
     
 /*
  * Convert integer to a string.
