@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <bsd/stdlib.h> 
 #include "common.h"
+#ifdef Linux
+#include <bsd/stdlib.h> 
+#endif
 
 
 int randomint(int max_value){
