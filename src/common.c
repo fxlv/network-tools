@@ -8,6 +8,11 @@ int randomint(int max_value){
     // straight out of 'arc4random' manpage
     return arc4random() % ((unsigned)max_value +1 );
 }
+
+
+int randomport(){
+    return randomint(65536);
+}
     
 /*
  * Convert integer to a string.

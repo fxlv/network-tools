@@ -96,8 +96,8 @@ int main(int argc, char *argv[])
 {
 
     // some defaults
-    int dst_port = 200;
-    int src_port = 200;
+    int dst_port = randomport();
+    int src_port = randomport();
     int count = 1;
     int opt;
     extern char *optarg;
