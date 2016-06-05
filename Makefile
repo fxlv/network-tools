@@ -12,6 +12,11 @@ SRCDIR=src
 debug: CFLAGS += -g
 debug: $(BINDIR)/udpraw $(BINDIR)/udpsender
 
+# arc4random on linux is in lib-bsd
+UNAME := $(shell uname)
+ifeq ($(UNAME),Linux)
+    CFLAGS += -lbsd
+endif
 
 $(BINDIR)/udpraw: $(SRCDIR)/udpraw.c $(SRCDIR)/common.h $(SRCDIR)/net-checksum.h
 	gcc -o $(BINDIR)/udpraw $(SRCDIR)/udpraw.c $(SRCDIR)/common.c $(SRCDIR)/net-checksum.c $(CFLAGS)
