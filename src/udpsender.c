@@ -13,11 +13,6 @@
 #include <netdb.h> 
 #include <unistd.h>
 
-void printstderr(char *msg)
-{
-    fprintf(stderr, "%s", msg);
-}
-
 void usage()
 {
     printstderr("usage: ./udpsender -t target [ -p port ] [ -c count ] [ -h ]\n");
