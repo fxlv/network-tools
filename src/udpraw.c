@@ -6,6 +6,7 @@
 #include <string.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <sys/time.h>
 #include "common.h"
 #include "net-checksum.h"
 
@@ -90,7 +91,10 @@ void send_packet(char *src_ip, int src_port, char *dst_ip, int dst_port, int cou
 
 int main(int argc, char *argv[])
 {
-
+    struct timeval start_time, end_time;
+    gettimeofday(&start_time,NULL);
+    int elapsed_time;
+    int packetrate;
     // some defaults
     int dst_port = randomport();
     int src_port = randomport();
@@ -140,7 +144,19 @@ int main(int argc, char *argv[])
         printf("Source IP not provided, default will be used.\n");
     }
 
+    printf("Elapsed time: %d seconds\n", start_time.tv_sec);
     // send the packet
     send_packet(src_ip, src_port, dst_ip, dst_port, count);
+    gettimeofday(&end_time, NULL);
+    elapsed_time = end_time.tv_sec - start_time.tv_sec;
+    packetrate = count / elapsed_time;
+    if( elapsed_time > 1){
+        printf("Elapsed time: %d seconds\n", elapsed_time);
+        printf("Packet rate: %d p/s\n", packetrate);
+    } else {
+        if(count > 1){
+            printf("%d packets sent in under a second\n", count);
+        }
+    }
     return 0;
 }
