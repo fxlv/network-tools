@@ -9,10 +9,6 @@
 #include "common.h"
 #include "net-checksum.h"
 
-void printstderr(char *msg)
-{
-    fprintf(stderr, "%s", msg);
-}
 
 void usage()
 {

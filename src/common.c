@@ -7,6 +7,11 @@
 #endif
 
 
+void printstderr(char *msg)
+{
+    fprintf(stderr, "%s", msg);
+}
+
 int randomint(int max_value){
     // straight out of 'arc4random' manpage
     return arc4random() % ((unsigned)max_value +1 );

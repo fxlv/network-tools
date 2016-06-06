@@ -1,6 +1,7 @@
 #ifndef _common_h
 #define _common_h
 
+void printstderr(char *msg);
 void die(char *msg);
 int randomint();
 int randomport();
