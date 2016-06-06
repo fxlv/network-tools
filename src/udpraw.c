@@ -22,7 +22,9 @@ void usage()
     printstderr("\t -h:\t\tPrint this usage message\n");
     exit(0);
 }
-void send_packet(char *src_ip, int src_port, char *dst_ip, int dst_port, int count)
+
+// send one packet
+void send_packet(char *src_ip, int src_port, char *dst_ip, int dst_port)
 {
     struct udphdr *udphdr;
     struct sockaddr_in address;
@@ -77,15 +79,39 @@ void send_packet(char *src_ip, int src_port, char *dst_ip, int dst_port, int cou
     printf("Checksum: %04x\n", csum1);
     printf("Checksum: %04x (htoned) \n", htons(csum1));
     udphdr->uh_sum = htons(csum1);
+    printf("Sending UDP packet from %s:%d to %s:%d\n", src_ip, src_port, dst_ip, dst_port);
+    int send_result = sendto( rawsock, &packet, sizeof(packet), 0x0,
+        (struct sockaddr *)&address, sizeof(address));
+    if(send_result > 0)
+        printf("Packet sent (result: %d)\n", send_result);
+    else
+        printf("Failed to send packet\n");
+}
+
+// send potentially multiple packets
+void send_packets(char *src_ip, int src_port, char *dst_ip, int dst_port, int count)
+{
     int i;
+    int random_port = 0;
+    int random_ip = 0;
+
+    if(src_port == 0){
+        random_port = 1;
+    }
+    if(*src_ip == NULL){
+        random_ip = 1;
+    }
+
     for(i = 0; i < count; i++){
-        printf("Sending UDP packet from %s:%d to %s:%d\n", src_ip, src_port, dst_ip, dst_port);
-        int send_result = sendto( rawsock, &packet, sizeof(packet), 0x0,
-            (struct sockaddr *)&address, sizeof(address));
-        if(send_result > 0)
-            printf("Packet sent (result: %d)\n", send_result);
-        else
-            printf("Failed to send packet\n");
+        if(random_port > 0){
+            src_port = randomport();
+            printf("Assigned random src_port %d\n", src_port);
+        }
+        if(random_ip > 0){
+            randomip(src_ip);
+            printf("Assigned random src_ip %s\n", src_ip);
+        }
+        send_packet(src_ip, src_port, dst_ip, dst_port);
     }
 }
 
@@ -97,16 +123,12 @@ int main(int argc, char *argv[])
     int packetrate;
     // some defaults
     int dst_port = randomport();
-    int src_port = randomport();
+    int src_port = 0;
     int count = 1;
     int opt;
     extern char *optarg;
     char *src_ip[20];
     char *dst_ip = NULL;
-    // assign random ip to src_ip 
-    randomip(src_ip);
-    printf("srcip %s \n", src_ip);
-    printf("dstip %s \n", dst_ip);
 
     if(argc < 3) // at least target is expected
         usage();
@@ -146,7 +168,7 @@ int main(int argc, char *argv[])
 
     printf("Elapsed time: %d seconds\n", start_time.tv_sec);
     // send the packet
-    send_packet(src_ip, src_port, dst_ip, dst_port, count);
+    send_packets(src_ip, src_port, dst_ip, dst_port, count);
     gettimeofday(&end_time, NULL);
     elapsed_time = end_time.tv_sec - start_time.tv_sec;
     packetrate = count / elapsed_time;
