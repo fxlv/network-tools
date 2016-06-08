@@ -17,6 +17,7 @@ UNAME := $(shell uname)
 ifeq ($(UNAME),Linux)
     CFLAGS += -lbsd
     CFLAGS += -DLinux # define macro to be used for conditional includes
+	CFLAGS += -D_BSD_SOURCE
 endif
 
 $(BINDIR)/udpraw: $(SRCDIR)/udpraw.c $(SRCDIR)/common.h $(SRCDIR)/net-checksum.h
