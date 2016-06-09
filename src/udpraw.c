@@ -98,7 +98,7 @@ void send_packets(char *src_ip, int src_port, char *dst_ip, int dst_port, int co
     if(src_port == 0){
         random_port = 1;
     }
-    if(*src_ip == NULL){
+    if(*src_ip == '\0'){
         random_ip = 1;
     }
 
@@ -139,7 +139,7 @@ int main(int argc, char *argv[])
                 dst_ip = optarg;
                 break;
             case 's':
-                strncpy(src_ip, optarg, sizeof(optarg));
+                strncpy(src_ip, optarg, sizeof(optarg)+2);
                 break;
             case 'p':
                 dst_port = atoi(optarg); // cast to integer
