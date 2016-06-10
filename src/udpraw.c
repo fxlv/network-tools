@@ -171,7 +171,7 @@ int main(int argc, char *argv[])
         printf("Source IP not provided, default will be used.\n");
     }
 
-    printf("Elapsed time: %d seconds\n", start_time.tv_sec);
+    printf("Elapsed time: %ld seconds\n", start_time.tv_sec);
     // send the packet
     send_packets(src_ip, src_port, dst_ip, dst_port, count);
     gettimeofday(&end_time, NULL);
