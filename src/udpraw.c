@@ -117,6 +117,11 @@ void send_packets(char *src_ip, int src_port, char *dst_ip, int dst_port, int co
 
 int main(int argc, char *argv[])
 {
+
+    if(geteuid() != 0){
+        die("udpraw requires elevated privileges");
+    }
+
     struct timeval start_time, end_time;
     gettimeofday(&start_time,NULL);
     int elapsed_time;
