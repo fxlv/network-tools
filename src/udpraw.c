@@ -162,7 +162,7 @@ int main(int argc, char *argv[])
         printstderr("Target not provided.\n");
         usage();
     }
-    if(src_ip == NULL){
+    if(*src_ip == '\0'){
         printf("Source IP not provided, default will be used.\n");
     }
 
