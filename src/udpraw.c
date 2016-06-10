@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
 {
 
     if(geteuid() != 0){
-        die("udpraw requires elevated privileges");
+        die("udpraw requires elevated privileges\n");
     }
 
     struct timeval start_time, end_time;

@@ -59,7 +59,7 @@ void random_octet(char* oct_buf){
 
 void die(char *msg)
 {
-    printf("%s\n", msg);
+    printstderr(msg);
     exit(EXIT_FAILURE);
 }
 
