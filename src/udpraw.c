@@ -13,14 +13,14 @@
 
 void usage()
 {
-    printstderr("usage: ./udpraw -d dst_ip [ -p dst_port ] [ -s src_ip ] [ -l src_port ] [ -c count ] [ -h ]\n");
+    fprintf(stderr, "usage: %s -d dst_ip [ -p dst_port ] [ -s src_ip ] [ -l src_port ] [ -c count ] [ -h ]\n", getprogname());
     printstderr("\t -d dst_ip:\tDestination IP or hostname\n");
     printstderr("\t -p dst_port:\tDestination port where to send the packet\n");
     printstderr("\t -s src_ip:\tSource IP address\n");
     printstderr("\t -l src_port:\tSource port where from to send the packet\n");
     printstderr("\t -c count:\tHow many packets to send\n");
     printstderr("\t -h:\t\tPrint this usage message\n");
-    exit(0);
+    exit(1);
 }
 
 // send one packet
