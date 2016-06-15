@@ -15,7 +15,7 @@
 
 void usage()
 {
-    printstderr("usage: ./udpsender -t target [ -p port ] [ -c count ] [ -h ]\n");
+    fprintf(stderr, "usage: %s -t target [ -p port ] [ -c count ] [ -h ]\n", getprogname());
     printstderr("\t -t target:\tDestination IP or hostname\n");
     printstderr("\t -p port:\tDestination port where to send the packet\n");
     printstderr("\t -c count:\tHow many packets to send\n");
