@@ -58,8 +58,8 @@ void send_packet(char *src_ip, int src_port, char *dst_ip, int dst_port)
     ip->ip_src.s_addr = inet_addr(src_ip);
     ip->ip_dst.s_addr = inet_addr(dst_ip);
 
-    printf("ip->ip_src.s_addr --> %08x\n",ip->ip_src.s_addr);
-    printf("ip->ip_dst.s_addr --> %08x\n",ip->ip_dst.s_addr);
+    dprint("ip->ip_src.s_addr --> %08x\n",ip->ip_src.s_addr);
+    dprint("ip->ip_dst.s_addr --> %08x\n",ip->ip_dst.s_addr);
 
     address.sin_family = AF_INET;
     address.sin_port = htons(dst_port);
@@ -76,8 +76,8 @@ void send_packet(char *src_ip, int src_port, char *dst_ip, int dst_port)
     8 bytes and there is no actual payload, just the headers.
     */
     csum1 = net_checksum_tcpudp(8, 17, (unsigned char *)&ip->ip_src, packet+20);
-    printf("Checksum: %04x\n", csum1);
-    printf("Checksum: %04x (htoned) \n", htons(csum1));
+    dprint("Checksum: %04x\n", csum1);
+    dprint("Checksum: %04x (htoned) \n", htons(csum1));
     udphdr->uh_sum = htons(csum1);
     printf("Sending UDP packet from %s:%d to %s:%d\n", src_ip, src_port, dst_ip, dst_port);
     int send_result = sendto( rawsock, &packet, sizeof(packet), 0x0,

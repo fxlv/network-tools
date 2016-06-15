@@ -1,6 +1,12 @@
 #ifndef _common_h
 #define _common_h
 
+#ifdef DEBUG
+#define dprint printf
+#else
+#define dprint(format, args...) ((void)0)
+#endif
+
 void printstderr(char *msg);
 void die(char *msg);
 int randomint();

@@ -3,14 +3,17 @@ CFLAGS=-Wall -O2
 
 INSTALLDIR=/opt/network-tools
 
-
 BINDIR=bin
 SRCDIR=src
 
-#all: $(BINDIR)/sockstat $(BINDIR)/files
 
-debug: CFLAGS += -g
-debug: $(BINDIR)/udpraw $(BINDIR)/udpsender
+DEBUG ?= 1
+ifeq ($(DEBUG), 1)
+	CFLAGS += -DDEBUG
+	CFLAGS += -g
+else
+	CFLAGS += -DNDEBUG
+endif
 
 # arc4random on linux is in lib-bsd
 UNAME := $(shell uname)

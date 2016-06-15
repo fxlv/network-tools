@@ -7,6 +7,7 @@
 #endif
 
 
+
 void printstderr(char *msg)
 {
     fprintf(stderr, "%s", msg);
@@ -34,9 +35,9 @@ void randomip(char* buf){
     random_octet(oct4);
     char ip[20];
     snprintf(ip, 20, "%s.%s.%s.%s", oct1, oct2, oct3, oct4);
-    printf("IP will be: %s\n", ip);
+    dprint("IP will be: %s\n", ip);
     strncpy(buf, ip, 20);
-    printf("Buffer is now: %s\n", buf);
+    dprint("Buffer is now: %s\n", buf);
 }
 
     
